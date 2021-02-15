@@ -7,14 +7,63 @@ Practice accessing data by console.log-ing the following pieces of data note, yo
 
 //(a) Home Team name for 2014 world cup final
 
+let finalsA = fifaData.filter((item) => {
+
+    return item.Year === 2014 && item.Stage === "Final";
+
+})
+
+finalsA;
+
+console.log(finalsA[0]["Home team Name"])
+
 //(b) Away Team name for 2014 world cup final
+
+let finalsB = fifaData.filter((item)=> {
+
+    return item.Year === 2014 && item.Stage === "Final";
+
+});
+
+finalsB;
+
+console.log(finalsB[0]["Away Team name"]);
 
 //(c) Home Team goals for 2014 world cup final
 
+let finalsC = fifaData.filter((item)=> {
+
+    return item.Year === 2014 && item.Stage === "Final";
+
+});
+
+finalsC;
+
+console.log(finalsC[0]["Home Team goals"]);
+
 //(d) Away Team goals for 2014 world cup final
+
+let finalsD = fifaData.filter((item)=> {
+
+    return item.Year === 2014 && item.Stage === "Final";
+
+});
+
+finalsD;
+
+console.log(finalsD[0]["Away Team goals"]);
 
 //(e) Winner of 2014 world cup final */
 
+let finalsE = fifaData.filter((item)=> {
+
+    return item.Year === 2014 && item.Stage === "Final";
+
+});
+
+finalsE;
+
+console.log(finalsE[0]['Win conditions']);
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 2: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
 Use getFinals to do the following:
@@ -24,11 +73,17 @@ Use getFinals to do the following:
 hint - you should be looking at the stage key inside of the objects
 */
 
-function getFinals(/* code here */) {
-   /* code here */
+function getFinals(T2data) {
+   
+    return T2data.filter((getFinal) => {
+
+        return getFinal.Stage === "Final";
+
+    })
+
 }
 
-
+console.log(getFinals);
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 3: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Use the higher-order function called getYears to do the following: 
@@ -36,11 +91,17 @@ Use the higher-order function called getYears to do the following:
 2. Receive a callback function getFinals from task 2 
 3. Return an array called years containing all of the years in the getFinals data set*/
 
-function getYears(/* code here */) {
-    /* code here */
+function getYears(T3array, T3finals) {
+    
+    return T3finals(T3array).map((getFinal) => {
+
+        return getFinal.Year;
+
+    })
+
 }
 
-
+console.log(getYears);
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 4: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Use the higher-order function getWinners to do the following:  
@@ -49,11 +110,30 @@ Use the higher-order function getWinners to do the following:
 3. Determines the winner (home or away) of each `finals` game. 
 4. Returns the names of all winning countries in an array called `winners` */ 
 
-function getWinners(/* code here */) {
-    /* code here */
+function getWinners(T3array, T3finals) {
+    
+    let T4array = T3finals(T3array);
+    let winners = [];
+
+    T4array.forEach(element => {
+
+        if (element ["Home Team Goals"] > element ["Away Team Goals"]) {
+
+            winners.push(element ["Home Team Name"])
+
+        } else {
+
+            winners.push(element ["Away Team Name"])
+
+        }
+
+    });
+
+    return winners;
+    
 }
 
-
+console.log(getWinners);
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 5: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
 Use the higher-order function getWinnersByYear to do the following:
@@ -63,13 +143,25 @@ Use the higher-order function getWinnersByYear to do the following:
 4. Return an array of strings that say "In {year}, {country} won the world cup!" 
 
 hint: the strings returned need to exactly match the string in step 4.
- */
+*/
 
-function getWinnersByYear(/* code here */) {
-    /* code here */
+function getWinnersByYear(fifaData, getYears, getWinners) {
+    
+    let year = getYears(fifaData);
+    let winners = getWinners(fifaData);
+    let T5Array = [];
+
+    for (let i = 0; i < winners.length; i++) {
+
+        T5Array.push(`In ${year[i]}, ${winners[i]} won the world cup!`);
+
+    }
+
+    return T5Array;
+
 }
 
-
+console.log(getWinnersByYear);
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 6: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Use the higher order function getAverageGoals to do the following: 
@@ -81,11 +173,20 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(/* code here */) {
-   /* code here */
+function getAverageGoals(T6finalsCallback) {
+   
+    let T6homeTotal = T6finalsCallback.reduce((total, item) => {
+        return total + item["Home Team Goals"]
+    }, 0)
+
+    let T6awayTotal = T6finalsCallback.reduce((total, item) => {
+        return total + item["Away Team Goals"]
+    }, 0)
+
+    return ((T6homeTotal / T6finalsCallback.length) + (T6awayTotal / T6finalsCallback.length)).toFixed(2);
 }
 
-
+console.log(getAverageGoals);
 
 
 /// 🥅 STRETCH 🥅 ///
